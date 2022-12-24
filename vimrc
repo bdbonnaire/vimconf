@@ -117,8 +117,6 @@ endif
 " Then source and run `PlugInstall`.
 call plug#begin('~/.vim/plugged')
 
-Plug 'mattn/emmet-vim' 
-Plug 'vim-scripts/c.vim'
 Plug 'ycm-core/YouCompleteMe'
 Plug 'morhetz/gruvbox'
 Plug 'cdelledonne/vim-cmake'
