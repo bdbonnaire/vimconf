@@ -1,20 +1,3 @@
-" An example for a vimrc file.
-"
-" Maintainer:	Bram Moolenaar <Bram@vim.org>
-" Last change:	2019 Jan 26
-"
-" To use it, copy it to
-"     for Unix and OS/2:  ~/.vimrc
-"	      for Amiga:  s:.vimrc
-"  for MS-DOS and Win32:  $VIM\_vimrc
-"	    for OpenVMS:  sys$login:.vimrc
-
-" When started as "evim", evim.vim will already have done these settings, bail
-" out.
-if v:progname =~? "evim"
-  finish
-endif
-
 " Get the defaults that most users want.
 source $VIMRUNTIME/defaults.vim
 
@@ -43,9 +26,21 @@ augroup END
 " Personal changes ========================================================
 " Bindings 
 
+	" Fix stupid Y command default to follow logic of others (D, C, ...)
+map Y y$	
+
 	" remaps movements to be graphicwise rather than linewise
 noremap j gj
 noremap k gk
+
+	" Bindings for easier use of tpope's fugitive plugin
+" kills default mapping
+map G <Nop>
+" abbreviations to save time
+map Gc :G commit <CR>
+map Gw :Gwrite <CR>
+" this is the old behavior of G solo
+noremap GG 100%
 
 " General
 set encoding=utf-8
@@ -138,4 +133,3 @@ let g:gruvbox_transparent_bg = 1
 let g:gruvbox_italic = 1
 colorscheme gruvbox
 set background=dark
-
