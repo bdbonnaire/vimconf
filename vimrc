@@ -39,6 +39,7 @@ map G <Nop>
 " abbreviations to save time
 map Gc :G commit <CR>
 map Gw :Gwrite <CR>
+map Gp :G push <CR>
 " this is the old behavior of G solo
 noremap GG 100%
 
