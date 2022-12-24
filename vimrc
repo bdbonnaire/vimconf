@@ -122,6 +122,7 @@ Plug 'morhetz/gruvbox'
 Plug 'cdelledonne/vim-cmake'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
 
 call plug#end()
 
