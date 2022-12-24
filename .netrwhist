@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =4
+let g:netrw_dirhist_4='/home/bdb/.vim'
+let g:netrw_dirhist_3='/home/bdb/Documents/master/M2S1/Sem/data/02'
+let g:netrw_dirhist_2='/home/bdb/Documents/master/M2S1/Sem'
+let g:netrw_dirhist_1='/home/bdb/Documents/master/M2S1/Sem/data/02'
+let g:netrw_dirhist_0='/home/bdb/Documents/master/M2S1/Sem'
+let g:netrw_dirhist_9='/home/bdb/Documents/master/M2S1/Sem/data/02'
+let g:netrw_dirhist_8='/home/bdb/Documents/master/M2S1/Sem'
+let g:netrw_dirhist_7='/home/bdb/Documents/master/M2S1/Sem/data/02'
+let g:netrw_dirhist_6='/home/bdb/Documents/master/M2S1/Sem'
+let g:netrw_dirhist_5='/home/bdb/Documents/master/M2S1/Sem/data'

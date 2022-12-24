@@ -51,6 +51,16 @@ set showcmd			" show the command in normal mode
 set smartindent		" indentation auto
 set wildmenu		" affiche une liste d'autocompletion
 set linebreak		" ne wrap pas au milieu d'un mot
+set autowrite		" automatically writes a buffer if opening something else
+set ignorecase 		" ignores case on a search pattern unless
+set smartcase		" Upper case is used
+
+	"Windows
+set noequalalways	" windows are not automatically resized
+set splitright 		" when splitting the newly opened window goes on the right
+
+	" Questionable
+set cursorline 		" Highlights current cursor line
 
 	" Tab preferences
 set shiftwidth=4	" defini la taille du shift auto (e.g << ou >>)
@@ -60,14 +70,21 @@ set tabstop=4		" defini la taille du caractere <Tab> à l'ecran
 
 hi User1 ctermbg=grey ctermfg=black guibg=grey guifg=black
 
-set laststatus=1	" montre statusline si plus d'une fenêtre, 2 si tout le temps
+set laststatus=2	" montre statusline si plus d'une fenêtre, 2 si tout le temps
 set stl= 					" mise à zero
 set stl+=%([%{winnr()}]%)	" window nbr 
 set stl+=\ %<%f				" emplacement relatif du fichier
-set stl+=\ %h%r%m%=			" si le buffer est aide,ReadOnly ou modifie
-set stl+=%14.(%l,%c%V%)		" ligne,col-colVisuelle 
+set stl+=\ %h%r%m			" si le buffer est aide,ReadOnly ou modifie
+set stl+=\ %{FugitiveStatusline()} " Git current branch with fugitive
+set stl+=%=%14.(%l,%c%V%)	" ligne,col-colVisuelle 
 set stl+=\ %y				" type de ficher
 set stl+=\ %P				" pourcentage dans le fichier
+
+" File tree : Netwr configs
+let g:netrw_banner = 0		" Hides the directory banner. Show it with `I`
+let g:netrw_liststyle = 3	" makes the tree listing style the default
+let g:netrw_list_hide ='^\..*' " Hides dotfiles by default
+let g:netrw_list_hide .=',^__.*' " Hides files starting with __ by default (usually python stuff)
 
 " C++ specific definitions
 if has("autocmd")
@@ -95,7 +112,9 @@ if (has("termguicolors"))
 	set termguicolors
 endif
 
-" vim-plug plugin manager
+" **Vim-Plug** plugin manager
+" Add any vim plugin github repo here.
+" Then source and run `PlugInstall`.
 call plug#begin('~/.vim/plugged')
 
 Plug 'mattn/emmet-vim' 
@@ -103,6 +122,7 @@ Plug 'vim-scripts/c.vim'
 Plug 'ycm-core/YouCompleteMe'
 Plug 'morhetz/gruvbox'
 Plug 'cdelledonne/vim-cmake'
+Plug 'tpope/vim-fugitive'
 
 call plug#end()
 
