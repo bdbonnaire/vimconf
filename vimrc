@@ -41,8 +41,13 @@ augroup vimrcEx
 augroup END
 
 " Personal changes ========================================================
+" Bindings 
 
-	" General
+	" remaps movements to be graphicwise rather than linewise
+noremap j gj
+noremap k gk
+
+" General
 set encoding=utf-8
 set number			"show line numbers 
 set hlsearch		" activates the hilighting in searches
@@ -92,11 +97,6 @@ if has("autocmd")
 	autocmd FileType cpp setlocal foldmethod=indent
 endif
 
-" Bindings 
-
-	" remaps movements to be graphicwise rather than linewise
-noremap j gj
-noremap k gk
 
 " Add optional packages.
 "
