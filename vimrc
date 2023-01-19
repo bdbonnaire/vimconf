@@ -1,6 +1,5 @@
 " Get the defaults that most users want.
 source $VIMRUNTIME/defaults.vim
-
 if has("vms")
   set nobackup		" do not keep a backup file, use versions instead
 else
@@ -27,23 +26,34 @@ augroup END
 " Bindings 
 
 	" Fix stupid Y command default to follow logic of others (D, C, ...)
-map Y y$	
+noremap Y y$	
+
+	" Leader key mapping
+let g:mapleader = "²"
+noremap <Leader><Leader> :w <CR>
 
 	" remaps movements to be graphicwise rather than linewise
-noremap j gj
-noremap k gk
+" noremap j gj
+" noremap k gk
 
 	" Bindings for easier use of tpope's fugitive plugin
-" kills default mapping
-map G <Nop>
+" kills default mapping I don't want to mess up my cursor if
+" 	I'm too slow.
+noremap G <Nop>
 " abbreviations to save time
-map Gc :G commit <CR>
-map Gw :Gwrite <CR>
-map Gp :G push <CR>
-" this is the old behavior of G solo
+	" Opens a commit window and resize it
+noremap Gc :botright Git commit <CR>
+noremap Gw :Gwrite <CR>
+map Gf Gw Gc 
+noremap Gp :Git push <CR>
+" this is the old behavior of G solo remapped to GG
 noremap GG 100%
 
-" General
+function FugitiveStatusWrapper() 
+   	
+endfunction
+
+" General Options
 set encoding=utf-8
 set number			"show line numbers 
 set hlsearch		" activates the hilighting in searches
