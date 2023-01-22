@@ -77,6 +77,8 @@ set cursorline 		" Highlights current cursor line
 set shiftwidth=4	" defini la taille du shift auto (e.g << ou >>)
 set tabstop=4		" defini la taille du caractere <Tab> à l'ecran
 
+	" general fold preference
+set foldmethod=marker
 	" StatusLine
 
 hi User1 ctermbg=grey ctermfg=black guibg=grey guifg=black
@@ -129,6 +131,7 @@ Plug 'cdelledonne/vim-cmake'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
+Plug 'goerz/jupytext.vim'
 
 call plug#end()
 
