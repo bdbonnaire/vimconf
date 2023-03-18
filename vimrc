@@ -31,6 +31,7 @@ noremap Y y$
 	" Leader key mapping
 let g:mapleader = "²"
 noremap <Leader><Leader> :w <CR>
+noremap <Leader>p "+p
 
 	" remaps movements to be graphicwise rather than linewise
 " noremap j gj
