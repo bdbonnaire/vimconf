@@ -167,8 +167,6 @@ Plug 'sirver/ultisnips'
 Plug 'honza/vim-snippets'
 " Debugger
 Plug 'puremourning/vimspector'
->>>>>>> b7d3f87e51e16d38318920c239c9d5740fc2ca79
-
 call plug#end()
 
 " plugin config
