@@ -49,10 +49,28 @@ map Gf Gw Gc
 noremap Gp :Git push <CR>
 " this is the old behavior of G solo remapped to GG
 noremap GG 100%
-
+" Latex Bindings
+if has("autocmd")
+	autocmd FileType tex inoremap <buffer> ùù \
+	autocmd FileType tex imap <buffer> ù' {
+	autocmd FileType tex imap <buffer> <' {
+	autocmd FileType tex inoremap <buffer> ù= }
+	autocmd FileType tex inoremap <buffer> <= }
+	autocmd FileType tex imap <buffer> ù( [
+	autocmd FileType tex imap <buffer> <( [
+	autocmd FileType tex inoremap <buffer> ù) ]
+	autocmd FileType tex inoremap <buffer> <) ]
+endif
 function FugitiveStatusWrapper() 
    	
 endfunction
+
+" Closing of brackets and stuff
+inoremap '' ''<Esc>i
+inoremap " ""<Esc>i
+inoremap ( ()<Esc>i
+inoremap { {}<Esc>i
+inoremap [ []<Esc>i
 
 " General Options
 set encoding=utf-8
@@ -66,13 +84,13 @@ set linebreak		" ne wrap pas au milieu d'un mot
 set autowrite		" automatically writes a buffer if opening something else
 set ignorecase 		" ignores case on a search pattern unless
 set smartcase		" Upper case is used
+set cursorline 		" Highlights current cursor line
+set backupdir=~/.vim/temp//,.
+set directory=~/.vim/temp//,.
 
 	"Windows
 set noequalalways	" windows are not automatically resized
 set splitright 		" when splitting the newly opened window goes on the right
-
-	" Questionable
-set cursorline 		" Highlights current cursor line
 
 	" Tab preferences
 set shiftwidth=4	" defini la taille du shift auto (e.g << ou >>)
@@ -126,13 +144,30 @@ endif
 " Then source and run `PlugInstall`.
 call plug#begin('~/.vim/plugged')
 
+" Completer engine
 Plug 'ycm-core/YouCompleteMe'
+" Good looking theme
 Plug 'morhetz/gruvbox'
-Plug 'cdelledonne/vim-cmake'
+
+"Plug 'cdelledonne/vim-cmake'
+" Git wrapper for vim
 Plug 'tpope/vim-fugitive'
+" Easy surround
 Plug 'tpope/vim-surround'
+" Easy way to toggle comments
 Plug 'tpope/vim-commentary'
+" Allows editing python notebook
 Plug 'goerz/jupytext.vim'
+" Makes TeX nicer to write in vim
+Plug 'lervag/vimtex'
+" Automatic ctag management
+Plug 'ludovicchabant/vim-gutentags'
+" Snippet engine and snippets
+Plug 'sirver/ultisnips'
+Plug 'honza/vim-snippets'
+" Debugger
+Plug 'puremourning/vimspector'
+>>>>>>> b7d3f87e51e16d38318920c239c9d5740fc2ca79
 
 call plug#end()
 
@@ -148,3 +183,16 @@ let g:gruvbox_transparent_bg = 1
 let g:gruvbox_italic = 1
 colorscheme gruvbox
 set background=dark
+
+" vimtex config to work with YouCompleteMe
+
+if !exists('g:ycm_semantic_triggers')
+let g:ycm_semantic_triggers = {}
+endif
+au VimEnter * let g:ycm_semantic_triggers.tex=g:vimtex#re#youcompleteme
+
+" ultisnip config
+let g:UltiSnipsEditSplit="context"
+let g:UltiSnipsExpandTrigger="<Enter>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
