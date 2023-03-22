@@ -45,7 +45,7 @@ noremap G <Nop>
 	" Opens a commit window and resize it
 noremap Gc :botright Git commit <CR>
 noremap Gw :Gwrite <CR>
-map Gf Gw Gc 
+map Gf GwGc 
 noremap Gp :Git push <CR>
 " this is the old behavior of G solo remapped to GG
 noremap GG 100%
@@ -194,3 +194,46 @@ let g:UltiSnipsEditSplit="context"
 let g:UltiSnipsExpandTrigger="<Enter>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+
+" Use the numbered registers for text smaller than one line
+" if exists("##TextYankPost")
+"   function! SmallDeleteRing(event) abort
+"     if a:event['operator'] == 'y'
+"       " Don't care about actual yanks
+"       return
+"     endif
+"     if a:event['regtype'] ==# 'V'
+"       " Vim already handles linewise deletions
+"       return
+"     endif
+    
+"     let regcontents = a:event['regcontents']
+"     if len(regcontents) > 1
+"       " Vim already handles deletions spanning multiple lines
+"       return
+"     endif
+
+"     let deleted = regcontents[0]
+
+"     if len(deleted) == 1
+"       " Don't want to catch single-character deletions (in particular, x)
+"       return
+"     endif
+
+"     " Grab registers 1-8
+"     let one_through_eight = mapnew(range(1, 8), {k, v -> getreg(v)})
+
+"     " Set register "1
+"     call setreg(1, deleted)
+
+"     " Set registers 2-9
+"     for i in range(1, 8)
+"       call setreg(i + 1, one_through_eight[i - 1])
+"     endfor
+"   endfunction
+
+"   augroup small_delete_ring
+"     autocmd!
+"     autocmd TextYankPost * call SmallDeleteRing(v:event)
+"   augroup END
+" endif
