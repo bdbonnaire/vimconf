@@ -193,4 +193,5 @@ au VimEnter * let g:ycm_semantic_triggers.tex=g:vimtex#re#youcompleteme
 let g:UltiSnipsEditSplit="context"
 let g:UltiSnipsExpandTrigger="<Enter>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+let g:UltiSnipsJumpBackwardTrigger="<S-NL>"
+let g:ultisnips_python_style= 'google'
