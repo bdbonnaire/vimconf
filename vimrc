@@ -33,6 +33,10 @@ let g:mapleader = "²"
 noremap <Leader><Leader> :w <CR>
 noremap <Leader>p "+p
 
+" Esc in normal mode deactivates search highlighting
+nnoremap <Esc> :set hlsearch!<CR>
+
+
 	" remaps movements to be graphicwise rather than linewise
 " noremap j gj
 " noremap k gk
@@ -61,9 +65,9 @@ if has("autocmd")
 	autocmd FileType tex inoremap <buffer> ù) ]
 	autocmd FileType tex inoremap <buffer> <) ]
 endif
-function FugitiveStatusWrapper() 
+"function FugitiveStatusWrapper() 
    	
-endfunction
+"endfunction
 
 " Closing of brackets and stuff
 inoremap '' ''<Esc>i
