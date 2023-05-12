@@ -34,8 +34,7 @@ noremap <Leader><Leader> :w <CR>
 noremap <Leader>p "+p
 
 " Esc in normal mode deactivates search highlighting
-nnoremap <Esc> :set hlsearch!<CR>
-
+nnoremap <Esc><Esc> :set hlsearch!<CR>
 
 	" remaps movements to be graphicwise rather than linewise
 " noremap j gj
