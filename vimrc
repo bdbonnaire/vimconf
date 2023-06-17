@@ -29,16 +29,20 @@ augroup END
 noremap Y y$	
 
 	" Leader key mapping
-let g:mapleader = "²"
+let g:mapleader = "!"
+let g:maplocalleader = "!"
 noremap <Leader><Leader> :w <CR>
-noremap <Leader>p "+p
-
-" Esc in normal mode deactivates search highlighting
-nnoremap <Esc><Esc> :set hlsearch!<CR>
 
 	" remaps movements to be graphicwise rather than linewise
 " noremap j gj
 " noremap k gk
+
+"Makes it easy to deal with search highlighting : I decide when I want it with
+"esc esc but searching automatically activates it.
+"TODO: Have it so that when abandonning a search deactivates it.
+nnoremap <Esc><Esc> :set hlsearch!<CR>
+nnoremap / :set hlsearch<CR>/
+nnoremap ? :set hlsearch<CR>?
 
 	" Bindings for easier use of tpope's fugitive plugin
 " kills default mapping I don't want to mess up my cursor if
@@ -54,42 +58,50 @@ noremap Gp :Git push <CR>
 noremap GG 100%
 " Latex Bindings
 if has("autocmd")
+	autocmd FileType tex set makeprg=latexmk
 	autocmd FileType tex inoremap <buffer> ùù \
 	autocmd FileType tex imap <buffer> ù' {
+	autocmd FileType tex imap <buffer> ùr {
 	autocmd FileType tex imap <buffer> <' {
 	autocmd FileType tex inoremap <buffer> ù= }
+	autocmd FileType tex inoremap <buffer> ùt }
 	autocmd FileType tex inoremap <buffer> <= }
 	autocmd FileType tex imap <buffer> ù( [
 	autocmd FileType tex imap <buffer> <( [
 	autocmd FileType tex inoremap <buffer> ù) ]
+	autocmd FileType tex inoremap <buffer> ù- ]
 	autocmd FileType tex inoremap <buffer> <) ]
+	autocmd FileType tex setlocal spell spelllang=en_us
 endif
-"function FugitiveStatusWrapper() 
+function FugitiveStatusWrapper() 
    	
-"endfunction
+endfunction
 
 " Closing of brackets and stuff
-inoremap '' ''<Esc>i
-inoremap " ""<Esc>i
-inoremap ( ()<Esc>i
-inoremap { {}<Esc>i
-inoremap [ []<Esc>i
+" inoremap ' ''<Left>
+" inoremap " ""<Left>
+" inoremap ( ()<Left>
+" inoremap { {}<Left>
+" inoremap [ []<Left>
 
 " General Options
 set encoding=utf-8
-set number			"show line numbers 
-set hlsearch		" activates the hilighting in searches
-set path+=**		" searches a file throught sub-directories
-set showcmd			" show the command in normal mode
-set smartindent		" indentation auto
-set wildmenu		" affiche une liste d'autocompletion
-set linebreak		" ne wrap pas au milieu d'un mot
-set autowrite		" automatically writes a buffer if opening something else
-set ignorecase 		" ignores case on a search pattern unless
+set number			" Show line numbers 
+set relativenumber	" together with number shows true number on active line
+set hlsearch		" Activates the hilighting in searches
+set path+=**		" Searches a file throught sub-directories
+set showcmd			" Show the command in normal mode
+set smartindent		" Indentation auto
+set wildmenu		" Affiche une liste d'autocompletion
+set linebreak		" Ne wrap pas au milieu d'un mot
+set autowrite		" Automatically writes a buffer if opening something else
+set ignorecase 		" Ignores case on a search pattern unless
 set smartcase		" Upper case is used
 set cursorline 		" Highlights current cursor line
+" Sets the folders for the backup files (*~) as being in .vim
 set backupdir=~/.vim/temp//,.
 set directory=~/.vim/temp//,.
+set foldmethod=marker
 
 	"Windows
 set noequalalways	" windows are not automatically resized
@@ -99,8 +111,6 @@ set splitright 		" when splitting the newly opened window goes on the right
 set shiftwidth=4	" defini la taille du shift auto (e.g << ou >>)
 set tabstop=4		" defini la taille du caractere <Tab> à l'ecran
 
-	" general fold preference
-set foldmethod=marker
 	" StatusLine
 
 hi User1 ctermbg=grey ctermfg=black guibg=grey guifg=black
@@ -127,9 +137,27 @@ if has("autocmd")
 	autocmd FileType cpp setlocal foldmethod=indent
 endif
 
-
+" jump from file to file easily with jump file
+" function! JumpToNextBufferInJumplist(dir) " 1=forward, -1=backward
+"     let jl = getjumplist() | let jumplist = jl[0] | let curjump = jl[1]
+"     let jumpcmdstr = a:dir > 0 ? '<C-O>' : '<C-I>'
+"     let jumpcmdchr = a:dir > 0 ? '^O' : '^I'    " <C-I> or <C-O>
+"     let searchrange = a:dir > 0 ? range(curjump+1,len(jumplist))
+"                               \ : range(curjump-1,0,-1)
+"     for i in searchrange
+"         if jumplist[i]["bufnr"] != bufnr('%')
+"             let n = (i - curjump) * a:dir
+"             echo "Executing ".jumpcmdstr." ".n." times."
+"             execute "silent normal! ".n.jumpcmdchr
+"             break
+"         endif
+"     endfor
+" endfunction
+" nnoremap <leader><C-O> :call JumpToNextBufferInJumplist(-1)<CR>
+" nnoremap <leader><C-I> :call JumpToNextBufferInJumplist( 1)<CR>
 " Add optional packages.
-"
+
+
 " The matchit plugin makes the % command work better, but it is not backwards
 " compatible.
 " The ! means the package won't be loaded right away but when plugins are
@@ -147,36 +175,31 @@ endif
 " Then source and run `PlugInstall`.
 call plug#begin('~/.vim/plugged')
 
-" Completer engine
 Plug 'ycm-core/YouCompleteMe'
-" Good looking theme
 Plug 'morhetz/gruvbox'
-
-"Plug 'cdelledonne/vim-cmake'
-" Git wrapper for vim
+Plug 'cdelledonne/vim-cmake'
 Plug 'tpope/vim-fugitive'
-" Easy surround
 Plug 'tpope/vim-surround'
-" Easy way to toggle comments
 Plug 'tpope/vim-commentary'
-" Allows editing python notebook
-Plug 'goerz/jupytext.vim'
-" Makes TeX nicer to write in vim
 Plug 'lervag/vimtex'
-" Automatic ctag management
 Plug 'ludovicchabant/vim-gutentags'
-" Snippet engine and snippets
 Plug 'sirver/ultisnips'
 Plug 'honza/vim-snippets'
-" Debugger
+Plug 'goerz/jupytext.vim'
 Plug 'puremourning/vimspector'
-call plug#end()
+Plug 'tpope/vim-abolish'
 
+call plug#end()
+"********************************************************************
 " plugin config
+"********************************************************************
 
 let g:ycm_autoclose_preview_window_after_insertion = 1
 
+""""""""""""""""""""""""""""""""""""""""""""""
 " Gruvbox config
+""""""""""""""""""""""""""""""""""""""""""""""
+
 " tells vim not to use background color erase, for kitty
 let &t_ut='' 
 let g:gruvbox_contrast_dark = 1
@@ -185,59 +208,23 @@ let g:gruvbox_italic = 1
 colorscheme gruvbox
 set background=dark
 
-" vimtex config to work with YouCompleteMe
+"""""""""""""""""""""""""""""""""""""""""""""
+" vimtex
+"""""""""""""""""""""""""""""""""""""""""""""
+let g:vimtex_view_method = 'zathura'
+let g:vimtex_compiler_latexmk = {'build_dir': {-> expand("%:t:r")}}
 
+	" vimtex config to work with YouCompleteMe
 if !exists('g:ycm_semantic_triggers')
 let g:ycm_semantic_triggers = {}
 endif
 au VimEnter * let g:ycm_semantic_triggers.tex=g:vimtex#re#youcompleteme
 
+"""""""""""""""""""""""""""""""""""""""""""""
 " ultisnip config
+"""""""""""""""""""""""""""""""""""""""""""""
 let g:UltiSnipsEditSplit="context"
 let g:UltiSnipsExpandTrigger="<Enter>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<S-NL>"
-let g:ultisnips_python_style= 'google'
-
-" Use the numbered registers for text smaller than one line
-" if exists("##TextYankPost")
-"   function! SmallDeleteRing(event) abort
-"     if a:event['operator'] == 'y'
-"       " Don't care about actual yanks
-"       return
-"     endif
-"     if a:event['regtype'] ==# 'V'
-"       " Vim already handles linewise deletions
-"       return
-"     endif
-    
-"     let regcontents = a:event['regcontents']
-"     if len(regcontents) > 1
-"       " Vim already handles deletions spanning multiple lines
-"       return
-"     endif
-
-"     let deleted = regcontents[0]
-
-"     if len(deleted) == 1
-"       " Don't want to catch single-character deletions (in particular, x)
-"       return
-"     endif
-
-"     " Grab registers 1-8
-"     let one_through_eight = mapnew(range(1, 8), {k, v -> getreg(v)})
-
-"     " Set register "1
-"     call setreg(1, deleted)
-
-"     " Set registers 2-9
-"     for i in range(1, 8)
-"       call setreg(i + 1, one_through_eight[i - 1])
-"     endfor
-"   endfunction
-
-"   augroup small_delete_ring
-"     autocmd!
-"     autocmd TextYankPost * call SmallDeleteRing(v:event)
-"   augroup END
-" endif
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+let g:ultisnips_python_style="numpy"
